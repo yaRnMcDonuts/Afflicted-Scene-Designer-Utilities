@@ -65,11 +65,11 @@ public class TerrainShaderConverter{
     private TextureArrayManager textureArrayManager;
     
     
-    private final String defaultPhongShaderString = "Common/MatDefs/Terrain/TerrainLighting.j3md"; //always check for this terrain type to convert 
+    private final String defaultPhongShaderString = "Common/MatDefs/Terrain/TerrainLighting.j3md"; //default jme terrain matdef
     
     
-    private final String defaultPbrShaderString = "MatDefs/shaders/AfflictedPBRTerrain.j3md";   //temporarily also read
-    private final String defaultAdvancedPbrShaderString = "";   
+    private final String defaultPbrShaderString = "MatDefs/shaders/PBRTerrain.j3md";  
+    private final String defaultAdvancedPbrShaderString = "MatDefs/shaders/AdvancedPBRTerrain.j3md";   
       
     private String phongShaderAssetKeyString= "Common/MatDefs/Terrain/TerrainLighting.j3md"; //these are to be changed to your custom version of the phong,pbr, and advanced PBR terrain shader (if you have one)
     private String pbrShaderAssetKeyString;
@@ -95,24 +95,7 @@ public class TerrainShaderConverter{
     public TerrainShaderConverter(SimpleApplication app, String assetFolder) {
         this.app = app;
         this.assetFolder = assetFolder;
-        
-        phongShaderAssetKeyString = "MatDefs/shaders/AfflictedPhongTerrain.j3md";
-        pbrShaderAssetKeyString = "MatDefs/shaders/AfflictedPBRTerrain.j3md";
-        advancedPbrShaderAssetKeyString = "MatDefs/shaders/AfflictedAdvancedPBRTerrain.j3md";
-        
-        
-                
-        for(int i = 0; i < 12; i ++){
-            customParamStrings.add("AfflictionMode_" + i);
-        }
-        
-        customParamStrings.add("AfflictionTexture");
-         customParamStrings.add("PlaguedAlbedoMap");
-          customParamStrings.add("PlaguedNormalMap");
-           customParamStrings.add("PlaguedMapScale");
-            customParamStrings.add("PlaguedRoughnessMetallicMap");
-        
-            
+       
       
         
         
@@ -123,7 +106,7 @@ public class TerrainShaderConverter{
     
     public ArrayList<String> customParamStrings = new ArrayList();
     public void addParamToConvert(String paramString) {  customParamStrings.add(paramString);  }   
-        
+    public void removeParamToConvert(String paramString) {  customParamStrings.remove(paramString);  } 
     
  //keep track of all texture slots, so that you still have the necissary data to convert from phong to advanced pbr   
     public ArrayList<TerrainTextureSlot> registeredTextureSlots;
